@@ -1,5 +1,6 @@
-use std::{env, path::Path};
-mod d01a;
+use std::{env, path::Path, fs::File, io::BufReader};
+mod d01;
+mod d02;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -22,16 +23,23 @@ fn main() {
         }
     };
 
-    match day.as_str() {
-        "01a" => {
-            match d01a::run(&input) {
-                Ok(()) => {},
-                Err(e) => panic!("Failed: {}", e),
-            }
-        },
+    let file = match File::open(input) {
+        Ok(f) => f,
+        Err(e) => panic!("Unable to open file {}: {}", input.display(), e.to_string()),
+    };
+    let reader = BufReader::new(file);
+
+    let result = match day.as_str() {
+        "01" => d01::run(reader),
+        "02" => d02::run(reader),
         _ => {
             panic!("Unknown day: {}", day);
         }
+    };
+
+    match result {
+        Ok(()) => {},
+        Err(e) => panic!("Failed: {}", e),
     }
 
 }
