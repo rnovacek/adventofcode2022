@@ -1,7 +1,6 @@
-use std::fs::File;
-use std::io::{ BufReader, BufRead };
+use std::io::{ BufReader, BufRead, Read };
 
-pub fn run(input: BufReader<File>) -> Result<(), String> {
+pub fn run<R: Read>(input: BufReader<R>) -> Result<(String, String), String> {
     let mut current_sum = 0;
     let mut total_max: i32 = 0;
     let mut top_three = Vec::new();
@@ -28,13 +27,11 @@ pub fn run(input: BufReader<File>) -> Result<(), String> {
         }
     }
 
-    println!("Result part one: {}", total_max);
     let top_three_sum = top_three.into_iter().reduce(|a, b| a + b);
-    match top_three_sum {
-        Some(result) => println!("Result part two: {}", result),
-        None => println!("No result for part two")
-    }
+    let result_part_2 = match top_three_sum {
+        Some(result) => result,
+        None => return Err(format!("No result for part two"))
+    };
 
-
-    Ok(())
+    Ok((total_max.to_string(), result_part_2.to_string()))
 }

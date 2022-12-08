@@ -1,4 +1,4 @@
-use std::{io::{BufReader, BufRead}, fs::File};
+use std::{io::{BufReader, BufRead, Read}};
 
 const MY_ROCK: char = 'X';
 const MY_PAPER: char = 'Y';
@@ -59,7 +59,7 @@ fn select_symbol(opponent: char, result: char) -> Result<char, String> {
     }
 }
 
-pub fn run(input: BufReader<File>) -> Result<(), String> {
+pub fn run<R: Read>(input: BufReader<R>) -> Result<(String, String), String> {
     let mut total1 = 0u32;
     let mut total2 = 0u32;
     for line in input.lines() {
@@ -82,7 +82,5 @@ pub fn run(input: BufReader<File>) -> Result<(), String> {
             Err(e) => return Err(e.to_string())
         }
     }
-    println!("Result part one: {}", total1);
-    println!("Result part two: {}", total2);
-    return Ok(());
+    return Ok((total1.to_string(), total2.to_string()));
 }

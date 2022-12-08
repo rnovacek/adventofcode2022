@@ -1,6 +1,11 @@
 use std::{env, path::Path, fs::File, io::BufReader};
 mod d01;
 mod d02;
+mod d03;
+mod d04;
+mod d05;
+mod d06;
+mod d07;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -32,14 +37,32 @@ fn main() {
     let result = match day.as_str() {
         "01" => d01::run(reader),
         "02" => d02::run(reader),
+        "03" => d03::run(reader),
+        "04" => d04::run(reader),
+        "05" => d05::run(reader),
+        "06" => d06::run(reader),
+        "07" => d07::run(reader),
         _ => {
             panic!("Unknown day: {}", day);
         }
     };
 
     match result {
-        Ok(()) => {},
+        Ok((part1, part2)) => {
+            println!("Result part one: {}", part1);
+            println!("Result part two: {}", part2);
+        },
         Err(e) => panic!("Failed: {}", e),
     }
 
+}
+
+#[cfg(test)]
+pub mod test_util {
+    use std::io::BufReader;
+
+    pub fn str_to_buf_reader<'input>(input: &'input String) -> BufReader<&'input [u8]> {
+        let b = input.as_bytes();
+        return BufReader::new(b);
+    }
 }
