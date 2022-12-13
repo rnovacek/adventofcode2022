@@ -208,7 +208,7 @@ mod test {
     use crate::test_util::str_to_buf_reader;
 
     #[test]
-    fn test_d10_01() {
+    fn test_d12_01() {
         let input = String::from("Sabqponm
 abcryxxl
 accszExk
@@ -226,7 +226,7 @@ abdefghi");
     }
 
     #[test]
-    fn test_d10_final() {
+    fn test_d12_final() {
         let f = std::fs::File::open("src/d12/input.txt").expect("No src/12/input.txt file");
         let result = run(BufReader::new(f)).expect("Run failed");
         assert_eq!(

@@ -291,7 +291,7 @@ mod test {
     use crate::test_util::str_to_buf_reader;
 
     #[test]
-    fn test_d10_01() {
+    fn test_d11_01() {
         let input = String::from("Monkey 0:
   Starting items: 79, 98
   Operation: new = old * 19
@@ -331,7 +331,7 @@ Monkey 3:
     }
 
     #[test]
-    fn test_d10_final() {
+    fn test_d11_final() {
         let f = std::fs::File::open("src/d11/input.txt").expect("No src/11/input.txt file");
         let result = run(BufReader::new(f)).expect("Run failed");
         assert_eq!(
